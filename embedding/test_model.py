@@ -9,3 +9,4 @@ pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 index = pc.Index("shop-assistant")
 
 print(index.describe_index_stats())
+

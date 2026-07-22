@@ -5,6 +5,7 @@ from backend.service.vector_store import VectorStore
 
 load_dotenv()  # Load environment variables from .env file
 
+
 system_message=(
     
     """
@@ -48,12 +49,18 @@ Description: {result.page_content}
 
     return context
 
+import time
+
 def generate_response(query, history):
+    t = time.time()
     client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+    print("Client created:", time.time() - t)
 
     history.append(f"User: {query}")
 
+    t = time.time()
     context = get_relevant_context(query)
+    print("Context fetched:", time.time() - t)
 
     prompt = (
         system_message
@@ -61,10 +68,12 @@ def generate_response(query, history):
         + f"\n\nContext:\n{context}\n\nUser: {query}\nAssistant:"
     )
 
+    t = time.time()
     response = client.models.generate_content(
         model="gemini-3.5-flash",
         contents=prompt,
     )
+    print("Gemini response:", time.time() - t)
 
     history.append(f"Assistant: {response.text}")
 
