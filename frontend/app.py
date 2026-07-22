@@ -3,7 +3,7 @@ import requests
 
 st.set_page_config(page_title="🛍️ Shop Assistant", layout="wide")
 
-BACKEND_URL = "http://localhost:8000"
+BACKEND_URL = "https://ai-shop-assistant-4uo2.onrender.com"
 
 # ----------------------------
 # Session State
