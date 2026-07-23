@@ -6,15 +6,19 @@ from dotenv import load_dotenv
 load_dotenv()  
 
 #connect csv
-csv_file='shop-product-catalog.csv'
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+csv_file = os.path.join(BASE_DIR, "shop-product-catalog.csv")
 data=pd.read_csv(csv_file)
 
 #connect mysql
-db_connect=mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password=os.getenv("DB_PASSWORD"),
-    database='shopassistant'
+db_connect = mysql.connector.connect(
+    host=os.getenv("MYSQLHOST"),
+    user=os.getenv("MYSQLUSER"),
+    password=os.getenv("MYSQLPASSWORD"),
+    database=os.getenv("MYSQLDATABASE"),
+    port=int(os.getenv("MYSQLPORT"))
 )
 
 cursor=db_connect.cursor()
